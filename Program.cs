@@ -22,7 +22,12 @@ namespace Matariki {
 
             switch (dayOfWeek) {
                 case 0: //Sunday 
-                    outputDate = inputDate.AddDays(-2);
+                    var morn = new TimeSpan(6,0,0);
+                    if (inputDate.TimeOfDay >= morn) {
+                        outputDate = inputDate.AddDays(-2);
+                    } else {
+                        outputDate = inputDate.AddDays(5);
+                    }
                     break;
                 case 1: // Monday
                     outputDate = inputDate.AddDays(4);
