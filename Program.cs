@@ -7,8 +7,8 @@ namespace Matariki
     {
 
         //Accuracy, scope and purpose constants
-        public const double phaseEqualityPrecision = 0.001; //How close a double has to be to be considered equal to another double
-        public const double timeZoneOffset = 12.0;
+        public const double phaseEqualityPrecision = 0.001; // How close a double has to be to be considered equal to another double
+        public const double timeZoneOffset = 12.0; // The time zone offset
 
         public static void Main()
         {
@@ -16,14 +16,13 @@ namespace Matariki
             var date = getMatarikiDate(year);
             var closestFriday = new DateTime();
             closestFriday = findFriday(date); // findFriday method returns the closest Friday.
-            Console.WriteLine(closestFriday);
-            Console.WriteLine("Year: " + year);
+            Console.WriteLine("The matariki public holiday will be on " + closestFriday.ToString("MMMM dd, yyyy"));
         }
         public static DateTime findFriday(DateTime inputDate)
         {
 
-            var outputDate = new DateTime(); //Creates the output date variable for the friday.         
-            int dayOfWeek = (int)inputDate.DayOfWeek; //Converts the first day of the four day period into a day of the week
+            var outputDate = new DateTime(); // Creates the output date variable for the friday.         
+            int dayOfWeek = (int)inputDate.DayOfWeek; // Converts the first day of the four day period into a day of the week
 
             switch (dayOfWeek)
             {
@@ -49,35 +48,33 @@ namespace Matariki
                     outputDate = inputDate.AddDays(-1);
                     break;
             }
-
             return outputDate;
         }
 
         public static uint input()
         {
-
             string inputYearString = "";
             uint inputYearInt = 0;
 
-            Console.WriteLine("Please enter a year between 0001 and 9999: ");
-            inputYearString = Console.ReadLine();
+            Console.WriteLine("Please enter a year between 0001 and 9999: "); //Asks user to input a string
+            inputYearString = Console.ReadLine(); //Reads the line
 
-            while (uint.TryParse(inputYearString, out inputYearInt) == false || inputYearInt < 1 || inputYearInt > 9999)
+            while (uint.TryParse(inputYearString, out inputYearInt) == false || inputYearInt < 1 || inputYearInt > 9999) //Requires re-input until the input is valid (ie it is an integer)
             {
-                Console.WriteLine("Invalid year, please enter a valid year between 0001 and 9999: ");
+                Console.WriteLine("Invalid year, please enter a valid year between 0001 and 9999: "); 
                 inputYearString = Console.ReadLine();
             }
 
             return inputYearInt;
         }
 
-        public static double DegToRad(double degrees)
+        public static double DegToRad(double degrees) //Converts a double from degrees to radians
         {
             double radians = degrees * (Math.PI / 180);
-            return (radians);
+            return radians;
         }
 
-        public static double NormalizeDeg(double degrees)
+        public static double NormalizeDeg(double degrees) //Normalizes a degree double value
         {
             double normalizedDegrees = degrees;
             if (degrees < 0)
@@ -88,7 +85,7 @@ namespace Matariki
             return normalizedDegrees %= 360; ;
         }
 
-        public static bool IsEquivalent(double num1, double num2)
+        public static bool IsEquivalent(double num1, double num2) //Checks if two doubles are close enough to each other and close enough to being equivalent
         {
             if (Math.Abs(num2 - num1) <= phaseEqualityPrecision)
             {
@@ -159,7 +156,7 @@ namespace Matariki
                 currentTimeUTC = currentTimeUTC.AddMinutes(1);
                 currentTimeLocal = currentTimeUTC.AddHours(timeZoneOffset);
             }
-
+            //Offset time by 1 hour because of some unknown issue
             currentTimeLocal = currentTimeLocal.AddHours(-1);
             return currentTimeLocal;
         }
