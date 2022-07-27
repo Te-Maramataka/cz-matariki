@@ -4,6 +4,9 @@
 
 cz-matariki is a program that predicts when the Matariki holiday will occur on a given year. This was written for the 2022 Macleans College Hackathon
 
+## Video
+[Youtube](https://youtu.be/0jXzWPd-UzQ)
+
 ## Installation
 
 A c# compiler is needed. 
