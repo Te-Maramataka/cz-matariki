@@ -31,7 +31,10 @@ Time is represented as julian centuries, a time period of 36525 days, since epoc
 
 After implementing this we obtain the first day of the period that is always four days. 
 
-Andrew write your method part here. 
+For cases where the first day lies between Monday and Thursday, days are incremented to reach the next Friday.
+For cases where the first day lies on the Friday, the date remains the same.
+For cases where the first day lies on a Saturday, the date is incremented by -1.
+For cases where the first day lies on a Sunday, the date is either incremented or reduced based on the approximate calculated time of the beginning of the Tangaroa Period, depending on whether or not it is before 6AM NZST (approx sunrise).
 
 ## Contributors
 
