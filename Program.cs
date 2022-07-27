@@ -1,31 +1,26 @@
 using System;
 
-namespace Matariki
-{
+namespace Matariki {
 
-    class Matariki
-    {
+    class Matariki {
 
         //Accuracy, scope and purpose constants
         public const double phaseEqualityPrecision = 0.001; // How close a double has to be to be considered equal to another double
         public const double timeZoneOffset = 12.0; // The time zone offset
 
-        public static void Main()
-        {
+        public static void Main() {
             uint year = input(); // input method asks for input then checks validity of input.
             var date = getMatarikiDate(year);
             var closestFriday = new DateTime();
             closestFriday = findFriday(date); // findFriday method returns the closest Friday.
             Console.WriteLine("The matariki public holiday will be on " + closestFriday.ToString("MMMM dd, yyyy"));
         }
-        public static DateTime findFriday(DateTime inputDate)
-        {
+        public static DateTime findFriday(DateTime inputDate) {
 
             var outputDate = new DateTime(); // Creates the output date variable for the friday.         
             int dayOfWeek = (int)inputDate.DayOfWeek; // Converts the first day of the four day period into a day of the week
 
-            switch (dayOfWeek)
-            {
+            switch (dayOfWeek) {
                 case 0: //Sunday 
                     outputDate = inputDate.AddDays(-2);
                     break;
@@ -51,8 +46,7 @@ namespace Matariki
             return outputDate;
         }
 
-        public static uint input()
-        {
+        public static uint input() {
             string inputYearString = "";
             uint inputYearInt = 0;
 
@@ -61,7 +55,7 @@ namespace Matariki
 
             while (uint.TryParse(inputYearString, out inputYearInt) == false || inputYearInt < 1 || inputYearInt > 9999) //Requires re-input until the input is valid (ie it is an integer)
             {
-                Console.WriteLine("Invalid year, please enter a valid year between 0001 and 9999: "); 
+                Console.WriteLine("Invalid year, please enter a valid year between 0001 and 9999: ");
                 inputYearString = Console.ReadLine();
             }
 
@@ -77,8 +71,7 @@ namespace Matariki
         public static double NormalizeDeg(double degrees) //Normalizes a degree double value
         {
             double normalizedDegrees = degrees;
-            if (degrees < 0)
-            {
+            if (degrees < 0) {
                 normalizedDegrees += 360;
                 return NormalizeDeg(normalizedDegrees);
             }
@@ -87,18 +80,14 @@ namespace Matariki
 
         public static bool IsEquivalent(double num1, double num2) //Checks if two doubles are close enough to each other and close enough to being equivalent
         {
-            if (Math.Abs(num2 - num1) <= phaseEqualityPrecision)
-            {
+            if (Math.Abs(num2 - num1) <= phaseEqualityPrecision) {
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
 
-        public static DateTime getMatarikiDate(uint year)
-        {
+        public static DateTime getMatarikiDate(uint year) {
             DateTime j2000 = new DateTime(2000, 1, 1, 12, 0, 0); // The date of epoch J2000.0
             DateTime currentTimeUTC; // The internal date that is iterated through, in UTC
             DateTime currentTimeLocal; // The local date
@@ -116,8 +105,7 @@ namespace Matariki
             Console.WriteLine("Getting Date...");
 
             //Code will iterate until the last phase that was either a full or empty moon was a full moon, the current illuminated fraction is approximately equal to 0.5 and the date is suitable for matariki
-            while (!(previouslyFull && IsEquivalent(illuminatedFraction, 0.5) && ((currentTimeLocal.Month == 6 && currentTimeLocal.Day >= 19) || currentTimeLocal.Month == 7)))
-            {
+            while (!(previouslyFull && IsEquivalent(illuminatedFraction, 0.5) && ((currentTimeLocal.Month == 6 && currentTimeLocal.Day >= 19) || currentTimeLocal.Month == 7))) {
                 //Get the time since epoch J2000.0 in julian centuries
                 timeJulianCenturies = (currentTimeUTC - j2000).TotalDays / 36525;
 
@@ -141,14 +129,12 @@ namespace Matariki
                 illuminatedFraction = (1 + Math.Cos(DegToRad(lunarPhaseAngle))) / 2;
 
                 //If the illuminated fraction is equal to 1, then the previous full or new moon was full
-                if (IsEquivalent(illuminatedFraction, 1))
-                {
+                if (IsEquivalent(illuminatedFraction, 1)) {
                     previouslyFull = true;
                 }
 
                 //Likewise, if the illuminated fraction is equal to 0, then the previous full or new moon was new
-                if (IsEquivalent(illuminatedFraction, 0))
-                {
+                if (IsEquivalent(illuminatedFraction, 0)) {
                     previouslyFull = false;
                 }
 
