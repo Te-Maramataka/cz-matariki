@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace Matariki {
 
@@ -13,7 +13,8 @@ namespace Matariki {
             var date = getMatarikiDate(year);
             var closestFriday = new DateTime();
             closestFriday = findFriday(date); // findFriday method returns the closest Friday.
-            Console.WriteLine("The matariki public holiday will be on " + closestFriday.ToString("MMMM dd, yyyy"));
+            Console.WriteLine("The Tangaroa period begins on " + date.ToString("MMMM dd, yyyy"));
+            Console.WriteLine("The Matariki Public Holiday will be on " + closestFriday.ToString("MMMM dd, yyyy"));
         }
         public static DateTime findFriday(DateTime inputDate) {
 
