@@ -9,7 +9,7 @@ cz-matariki is a program that predicts when the Matariki holiday will occur on a
 
 ## Installation
 
-A c# compiler is needed. 
+Clone the repo and run the Program.cs file with your preffered c# compiler 
 
 ## Running the program
 
